@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Animated, Dimensions } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
@@ -49,9 +49,19 @@ const SplashScreen = () => {
         setTimeout(async () => {
             const user = await AsyncStorage.getItem('user')
             if (user) {
-                navigation.replace("HomeScreen")
+                navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'HomeScreen' }],
+                    })
+                  );
             } else {
-                navigation.replace("LoginScreen")
+                navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'LoginScreen' }],
+                    })
+                  );
             }
         }, 3000)
     }

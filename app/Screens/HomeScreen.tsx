@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -23,7 +23,12 @@ const HomeScreen = () => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('user')
-      navigation.replace("LoginScreen")
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'LoginScreen' }],
+        })
+      );
     } catch (error) {
       console.error('Error during logout:', error)
     }
