@@ -1,4 +1,4 @@
 module.exports = {
-    assets: ['./assets/fonts'],
+    assets: ['./assets/fonts'], //this libary install npx react-native-asset
   };
   
