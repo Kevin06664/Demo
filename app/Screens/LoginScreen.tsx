@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: wp('8%'),
-    fontWeight: 'bold',
+    fontFamily: 'Poppins-Bold',
     color: '#ffffff',
     marginBottom: hp('1%'),
     textAlign: 'center',
