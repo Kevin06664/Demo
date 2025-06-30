@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import InputField from '../Common/Input'
 import Button from '../Common/Button'
 import { isEmail, isEmpty } from '../Common/helper'
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { postRequest } from '../Services/userService'
@@ -53,7 +53,12 @@ const LoginScreen = () => {
       const result = await postRequest('/service.php?Service=login', payload, headers)
       if (result?.data) {
         await AsyncStorage.setItem('user', JSON.stringify(payload))
-        navigation.replace("HomeScreen")
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'HomeScreen' }],
+          })
+        );
       } else {
         Alert.alert(result?.msg)
         console.log('Login failed:',result);

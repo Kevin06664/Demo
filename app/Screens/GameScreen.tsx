@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
+import { useNavigation, useRoute, RouteProp, CommonActions } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
@@ -96,7 +96,13 @@ const GameScreen = () => {
         },
         {
           text: "Exit",
-          onPress: () => navigation.navigate('HomeScreen')
+          onPress: () =>
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'HomeScreen' }],
+              })
+            )
         }
       ]
     )
@@ -153,7 +159,13 @@ const GameScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity 
             style={[styles.button, styles.exitButton]} 
-            onPress={() => navigation.navigate('HomeScreen')}
+            onPress={() =>  
+              navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'HomeScreen' }],
+              })
+            )}
           >
             <Icon name="sign-out" size={20} color="#fff" style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Exit</Text>
